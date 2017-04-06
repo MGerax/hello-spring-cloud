@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+group 'com.and'
+version '1.0-SNAPSHOT'
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "application"
+
+mainClassName = 'com.and.Application'
+sourceCompatibility = 1.8
+
+jar {
+    baseName = 'simple-gradle'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    runtime("com.h2database:h2:1.4.194")
+    runtime("mysql:mysql-connector-java:6.0.6")
+    runtime("postgresql:postgresql:9.1-901.jdbc4")
+
+    // web + db + ui
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-jdbc:1.5.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-data-redis:1.5.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-amqp:1.5.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:1.5.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:1.5.2.RELEASE")
+    //cloud
+    compile("org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.2.3.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-heroku-connector:1.2.3.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-spring-service-connector:1.2.3.RELEASE")
+
+    compile("joda-time:joda-time:2.2")
+    testCompile("junit:junit:4.11")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
